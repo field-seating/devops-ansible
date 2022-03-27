@@ -1,12 +1,21 @@
 name: API Staging Deployment
-on:
-  repository_dispatch:
-    types: [test_result]
+on: 
+  workflow_dispatch:
+    inputs:
+      deployEnv:
+        description: 'env to deploy'     
+        required: true
+        default: 'staging' 
+        type: choice
+        options:
+        - staging 
+        - production 
 
 jobs:
-  run_if_failure:
+  log-the-inputs:
     runs-on: ubuntu-latest
     steps:
-      - env:
-          MESSAGE: ${{ github.event.client_payload.message }}
-        run: echo $MESSAGE
+      - run: |
+          echo "deployEnv: $DEPLOY_ENV"
+        env:
+          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
