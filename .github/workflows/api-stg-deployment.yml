@@ -1,0 +1,12 @@
+name: API Staging Deployment
+on:
+  repository_dispatch:
+    types: [test_result]
+
+jobs:
+  run_if_failure:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          MESSAGE: ${{ github.event.client_payload.message }}
+        run: echo $MESSAGE
