@@ -15,7 +15,13 @@ jobs:
   log-the-inputs:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - run: |
           echo "deployEnv: $DEPLOY_ENV"
+        env:
+          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
+      - name: touch
+        run: ansible-playbook -i staging --private-key $HOME/secrets/my_private_key.pem apiserver.yml  
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
