@@ -21,7 +21,18 @@ jobs:
           echo "deployEnv: $DEPLOY_ENV"
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
+
+      - name: render password file
+        run: |
+          echo $COMMON_PASSWORD > $HOME/password/common_password
+        env:
+          COMMON_PASSWORD: ${{ secrets.COMMON_PASSWORD }}
+
+      - name: decrypt private_key
+        run: |
+          ansible-vault decrypt --vault-id $HOME/password/common_password secret_file/staging/private_key.enc --output=$HOME/secrets/my_private_key.pem
+
       - name: touch
-        run: ansible-playbook -i staging --private-key $HOME/secrets/my_private_key.pem apiserver.yml  
+        run: ansible-playbook -i staging --vault-id $HOME/password/common_password -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
