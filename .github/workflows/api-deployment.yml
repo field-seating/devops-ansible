@@ -18,11 +18,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - run: |
-          echo "deployEnv: $DEPLOY_ENV"
-        env:
-          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
-
       - name: create secrets directory
         run: |
           mkdir $HOME/secrets
