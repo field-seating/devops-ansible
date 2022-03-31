@@ -14,5 +14,10 @@
     ports:
       - "3000:3000" 
 
-- name: docker prune 
-  import_tasks: tasks/docker-prune.yml
+- name: Prune everything
+  community.docker.docker_prune:
+    containers: yes
+    images: yes
+    networks: yes
+    volumes: yes
+    builder_cache: yes
