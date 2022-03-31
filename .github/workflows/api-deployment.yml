@@ -17,10 +17,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - run: |
           echo "deployEnv: $DEPLOY_ENV"
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
+
       - name: create secrets directory
         run: |
           mkdir $HOME/secrets
@@ -33,8 +35,12 @@ jobs:
 
       - name: decrypt private_key
         run: |
-          ansible-vault decrypt --vault-id $HOME/secrets/common_password secret_file/staging/private_key.enc --output=$HOME/secrets/my_private_key.pem
+          ansible-vault decrypt --vault-id $HOME/secrets/common_password secret_file/$DEPLOY_ENV/private_key.enc --output=$HOME/secrets/my_private_key.pem
+        env:
+          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
 
       - name: touch
         run: |
-          ansible-playbook -i inventories/staging --vault-id $HOME/secrets/common_password -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
+          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
+        env:
+          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
