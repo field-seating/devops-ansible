@@ -12,7 +12,7 @@ on:
         - production 
 
 jobs:
-  log-the-inputs:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -36,6 +36,6 @@ jobs:
           ansible-vault decrypt --vault-id $HOME/secrets/common_password secret_file/staging/private_key.enc --output=$HOME/secrets/my_private_key.pem
 
       - name: touch
-        run: ansible-playbook -i staging --vault-id $HOME/secrets/common_password -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
+        run: ansible-playbook -i inventories/staging --vault-id $HOME/secrets/common_password -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
