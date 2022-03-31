@@ -10,6 +10,11 @@ on:
         options:
         - staging 
         - production 
+      deployTag:
+        description: 'tag to deploy'     
+        required: true
+        default: 'main' 
+        type: string
 
 jobs:
   deploy:
@@ -34,8 +39,9 @@ jobs:
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
 
-      - name: touch
+      - name: pull image and create container 
         run: |
-          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -e="image_tag=main" -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
+          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -e="image_tag=$DEPLOY_TAG" -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
+          DEPLOY_TAG: ${{ github.event.inputs.deployTag }}
