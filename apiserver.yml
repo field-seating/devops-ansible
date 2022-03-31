@@ -2,4 +2,5 @@
 - hosts: apiservers 
   become: true
   roles: 
-    - touch 
+    - docker-setup
+    - api_deploy

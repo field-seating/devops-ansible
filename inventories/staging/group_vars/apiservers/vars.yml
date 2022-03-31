@@ -1,1 +1,6 @@
 tmp_file_name: "{{ secret }}" 
+image_registry: ghcr.io
+registry_username: WendellLiu
+registry_password: "{{ github_token }}"
+container_image: "ghcr.io/field-seating/field-seating-api:{{ image_tag }}"
+container_name: field-seating-api 

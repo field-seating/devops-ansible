@@ -1,2 +1,18 @@
-- name: Leaving a mark
-  command: "touch /tmp/{{ tmp_file_name }}"
+- name: Pull default Docker image
+  community.docker.docker_image:
+    name: "{{ container_image }}"
+    source: pull
+    force_source: true
+
+- name: Create default containers
+  community.docker.docker_container:
+    name: "{{ container_name }}"
+    image: "{{ container_image }}"
+    recreate: yes
+    exposed_ports:
+      - 3000 
+    ports:
+      - "3000:3000" 
+
+- name: docker prune 
+  import_tasks: tasks/docker-prune.yml
