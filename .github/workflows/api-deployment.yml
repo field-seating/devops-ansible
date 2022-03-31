@@ -37,7 +37,4 @@ jobs:
 
       - name: touch
         run: |
-          cat $HOME/secrets/my_private_key.pem
           ansible-playbook -i inventories/staging --vault-id $HOME/secrets/common_password -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
-        env:
-          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
