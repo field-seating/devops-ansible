@@ -1,0 +1,2 @@
+- name: Leaving another mark
+  command: "touch /tmp/another_{{ tmp_file_name }}"

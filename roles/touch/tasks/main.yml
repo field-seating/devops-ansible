@@ -1,2 +1,3 @@
 - name: Leaving a mark
   command: "touch /tmp/{{ tmp_file_name }}"
+- import_tasks: sub_tasks.yml
