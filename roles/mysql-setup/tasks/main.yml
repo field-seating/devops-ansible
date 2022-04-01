@@ -19,3 +19,5 @@
       MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}" 
     networks:
       - name: "{{ common_network_name }}"
+    capabilities:
+      - sys_time
