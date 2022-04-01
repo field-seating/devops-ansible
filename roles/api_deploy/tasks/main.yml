@@ -1,4 +1,4 @@
-- name: Print the gateway for each host when defined
+- name: Print the info 
   ansible.builtin.debug:
     msg: image {{ container_image }} container {{ container_name }}
     verbosity: 1
@@ -23,3 +23,4 @@
   community.docker.docker_prune:
     images: yes
     volumes: yes
+    containers: yes

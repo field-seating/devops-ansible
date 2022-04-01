@@ -1,0 +1,9 @@
+- name: 'Check mandatory variables are defined'
+  assert:
+    that:
+      - advertise_addr is defined
+
+- name: Init a new swarm with default parameters
+  docker_swarm:
+    state: present
+    advertise_addr: "{{ advertise_addr }}" 
