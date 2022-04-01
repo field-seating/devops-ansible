@@ -20,4 +20,4 @@
     networks:
       - name: "{{ common_network_name }}"
     capabilities:
-      - sys_time
+      - sys_nice 
