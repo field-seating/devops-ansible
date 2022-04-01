@@ -1,0 +1,21 @@
+- name: Pull default Docker image
+  community.docker.docker_image:
+    name: "{{ mysql_container_image }}"
+    source: pull
+    force_source: true
+
+- name: Create default containers
+  community.docker.docker_container:
+    name: "{{ mysql_container_name }}"
+    image: "{{ mysql_container_image }}"
+    recreate: yes
+    exposed_ports:
+      - 3306 
+    ports:
+      - "3306:3306" 
+    volumes:
+      - /var/data/mysql:/var/lib/mysql 
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}" 
+    networks:
+      - name: "{{ common_network_name }}"

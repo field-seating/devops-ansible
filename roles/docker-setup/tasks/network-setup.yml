@@ -1,0 +1,3 @@
+- name: Create a network
+  docker_network:
+    name: "{{ common_network_name }}"

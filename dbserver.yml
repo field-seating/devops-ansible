@@ -1,0 +1,6 @@
+---
+- hosts: apiservers 
+  become: true
+  roles: 
+    - docker-setup
+    - mysql-setup 
