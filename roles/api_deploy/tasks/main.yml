@@ -9,15 +9,27 @@
     source: pull
     force_source: true
 
-- name: Create default containers
+- name: Create container daemon
   community.docker.docker_container:
     name: "{{ container_name }}"
     image: "{{ container_image }}"
+    restart: true
+    restart_policy: on-failure
+    restart_retries: 20
     recreate: yes
     exposed_ports:
       - 3000 
     ports:
       - "3000:3000" 
+    networks:
+      - name: "{{ common_network_name }}"
+    env:
+      DATABASE_URL: "{{ database_url }}"
+
+- name: post deploy 
+  community.docker.docker_container_exec:
+    container: "{{ container_name }}"
+    command: npm run db:deploy 
 
 - name: Prune everything
   community.docker.docker_prune:
