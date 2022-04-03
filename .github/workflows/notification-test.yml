@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notification
-        uses: Ilshidur/action-discord@master
+        uses: Ilshidur/action-discord@0.3.2
         with:
           #args: 'The project {{ REPO_NAME }} has been deployed. And, {{ MESSAGE }}'
           args: 'The project has been deployed. '
