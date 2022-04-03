@@ -1,0 +1,23 @@
+name: notification test 
+on: 
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'tag to deploy'     
+        required: true
+        default: 'hello' 
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The project {{ REPO_NAME }} has been deployed. And, {{ MESSAGE }}'
+        env:
+          MESSAGE: ${{ github.event.inputs.message }}
+          REPO_NAME: ${{ EVENT_PAYLOAD.repository.full_name }}
