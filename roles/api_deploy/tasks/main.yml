@@ -25,6 +25,7 @@
       - name: "{{ common_network_name }}"
     env:
       DATABASE_URL: "{{ database_url }}"
+      JWT_SECRET: "{{ jwt_secret }}"
 
 - name: post deploy 
   community.docker.docker_container_exec:
