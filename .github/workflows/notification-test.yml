@@ -15,8 +15,7 @@ jobs:
       - name: Notification
         uses: Ilshidur/action-discord@0.3.2
         with:
-          #args: 'The project {{ REPO_NAME }} has been deployed. And, {{ MESSAGE }}'
-          args: 'The project has been deployed. '
+          args: 'The project {{ REPO_NAME }} has been deployed. And, {{ MESSAGE }}'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
