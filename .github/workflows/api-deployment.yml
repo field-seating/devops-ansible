@@ -16,12 +16,24 @@ on:
         default: 'main' 
         type: string
 
+env:
+  PROJECT_NAME: field-seating-api-${{deployEnv}}:${{deployTag}}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: pre notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '{{ PROJECT_NAME }} deployment has been started. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MESSAGE: ${{ github.event.inputs.message }}
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
 
       - name: create secrets directory
         run: |
@@ -45,3 +57,27 @@ jobs:
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
           DEPLOY_TAG: ${{ github.event.inputs.deployTag }}
+
+      - name: post notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '{{ PROJECT_NAME }} deployment was succussful. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MESSAGE: ${{ github.event.inputs.message }}
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+
+  failure-notification:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    steps:
+      - name: failure notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '{{ PROJECT_NAME }} deployment was failed. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MESSAGE: ${{ github.event.inputs.message }}
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+
