@@ -33,9 +33,9 @@ jobs:
   failure-notification:
     needs: [deploy]
     runs-on: ubuntu-latest
+    if: ${{ failure() }}
     steps:
       - name: failure notification 
-        if: ${{ failure() }}
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: '{{ PROJECT_NAME }} deployment was failed. Please refer to Run URL'
