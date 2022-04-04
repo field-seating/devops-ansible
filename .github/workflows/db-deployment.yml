@@ -48,10 +48,9 @@ jobs:
 
       - name: pull image and create container 
         run: |
-          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -u root dbserver.yml 
+          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -u root --private-key $HOME/secrets/my_private_key.pem dbserver.yml 
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
-          DEPLOY_TAG: ${{ github.event.inputs.deployTag }}
 
       - name: post notification 
         uses: Ilshidur/action-discord@0.3.2
