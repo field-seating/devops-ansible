@@ -17,7 +17,7 @@ on:
         type: string
 
 env:
-  PROJECT_NAME: field-seating-api-${{deployEnv}}:${{deployTag}}
+  PROJECT_NAME: field-seating-api-${{github.event.inputs.deployEnv}}:${{github.event.inputs.deployTag}}
 
 jobs:
   deploy:
