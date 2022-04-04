@@ -20,7 +20,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
           REPO_NAME: ${{ github.event.repo.name }}
-          EMBED:
-            - title: "Google it!"
-              url: "https://google.com/"
-          DISCORD_EMBEDS: ${{ toJSON(EMBED) }} 
+          DISCORD_EMBEDS: '[{"title": "Google it!", "url": "https://google.com/"}]'
