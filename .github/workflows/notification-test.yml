@@ -8,16 +8,38 @@ on:
         default: 'hello' 
         type: string
 
+env:
+  RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} 
+  RUN_ID: ${{github.run_id}}
+  PROJECT_NAME: "field-seating-api"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Notification
+      - name: pre notification 
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: 'The project {{ REPO_NAME }} has been deployed. And, {{ MESSAGE }}'
+          args: '{{ PROJECT_NAME }} deployment has been started. Please refer to Run URL'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
-          REPO_NAME: ${{ github.event.repo.name }}
-          DISCORD_EMBEDS: '[{"title": "Job URL", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+          DISCORD_EMBEDS: '[{"title": "Run URL {{RUN_ID}}", "url": "{{RUN_URL}}"}]'
+
+      - name: post notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '{{ PROJECT_NAME }} deployment was succussful. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MESSAGE: ${{ github.event.inputs.message }}
+          DISCORD_EMBEDS: '[{"title": "Run URL {{RUN_ID}}", "url": "{{RUN_URL}}"}]'
+
+      - name: failure notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '{{ PROJECT_NAME }} deployment was failed. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MESSAGE: ${{ github.event.inputs.message }}
+          DISCORD_EMBEDS: '[{"title": "Run URL {{RUN_ID}}", "url": "{{RUN_URL}}"}]'
