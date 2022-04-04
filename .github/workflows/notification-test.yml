@@ -27,8 +27,11 @@ jobs:
           MESSAGE: ${{ github.event.inputs.message }}
           DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
 
+      - name: Try to fail
+            run: exit 1
 
       - name: failure notification 
+        if: ${{ failure() }}
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: '{{ PROJECT_NAME }} deployment was failed. Please refer to Run URL'
