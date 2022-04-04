@@ -9,6 +9,9 @@
     name: "{{ mysql_container_name }}"
     image: "{{ mysql_container_image }}"
     recreate: yes
+    restart: true
+    restart_policy: on-failure
+    restart_retries: 20
     exposed_ports:
       - 3306 
     ports:
