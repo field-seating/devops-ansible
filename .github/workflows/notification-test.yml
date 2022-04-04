@@ -1,12 +1,6 @@
 name: notification test 
 on: 
   workflow_dispatch:
-    inputs:
-      message:
-        description: 'tag to deploy'     
-        required: true
-        default: 'hello' 
-        type: string
 
 env:
   RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} 
@@ -24,7 +18,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
-          DISCORD_EMBEDS: '[{"title": "Run URL {{RUN_ID}}", "url": "{{RUN_URL}}"}]'
+          DISCORD_EMBEDS: '[{"title": "Run URL $RUN_ID", "url": "$RUN_URL"}]'
 
       - name: post notification 
         uses: Ilshidur/action-discord@0.3.2
@@ -33,7 +27,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
-          DISCORD_EMBEDS: '[{"title": "Run URL {{RUN_ID}}", "url": "{{RUN_URL}}"}]'
+          DISCORD_EMBEDS: '[{"title": "Run URL $RUN_ID", "url": "$RUN_URL"}]'
 
       - name: failure notification 
         uses: Ilshidur/action-discord@0.3.2
@@ -42,4 +36,4 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
-          DISCORD_EMBEDS: '[{"title": "Run URL {{RUN_ID}}", "url": "{{RUN_URL}}"}]'
+          DISCORD_EMBEDS: '[{"title": "Run URL $RUN_ID", "url": "$RUN_URL"}]'
