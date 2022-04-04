@@ -3,8 +3,6 @@ on:
   workflow_dispatch:
 
 env:
-  RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} 
-  RUN_ID: ${{github.run_id}}
   PROJECT_NAME: field-seating-api
 
 jobs:
@@ -18,7 +16,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
-          DISCORD_EMBEDS: '[{"title": "Job URL", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
 
       - name: post notification 
         uses: Ilshidur/action-discord@0.3.2
@@ -27,7 +25,8 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
-          DISCORD_EMBEDS: '[{"title": "Job URL", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+
 
       - name: failure notification 
         uses: Ilshidur/action-discord@0.3.2
@@ -36,4 +35,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
-          DISCORD_EMBEDS: '[{"title": "Job URL", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+
