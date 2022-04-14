@@ -12,3 +12,4 @@ mysql_volume_path: /var/data/mysql
 common_network_name: field-seating-api
 database_url: "mysql://root:{{ mysql_root_password }}@{{ mysql_container_name }}:3306/field_seating_staging"
 jwt_secret: "{{ jwt_secret }}"
+sib_key: "{{ sib_key }}"
