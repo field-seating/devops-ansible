@@ -28,7 +28,6 @@
     SIB_KEY: "{{ sib_key }}"
     REPLICAS: "{{ api_replicas }}"
     CONTAINER_IMAGE: "{{ container_image }}"
-    COMMON_NETWORK_NAME: "{{common_network_name}}"
 
 - name: post deploy 
   community.docker.docker_container:
