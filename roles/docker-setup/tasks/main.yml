@@ -1,4 +1,3 @@
 - import_tasks: env-setup.yml
-- import_tasks: network-setup.yml
 - import_tasks: init-swarm.yml 
 - import_tasks: login-registry.yml 

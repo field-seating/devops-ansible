@@ -33,6 +33,10 @@
     state: latest
     update_cache: true
 
-- name: Install Docker Module for Python
+- name: Install Python Module
   pip:
-    name: docker
+    name: 
+      - docker
+      - jsondiff
+      - pyyaml
+
