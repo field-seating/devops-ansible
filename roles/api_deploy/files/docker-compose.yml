@@ -23,5 +23,3 @@ services:
       DATABASE_URL: ${DATABASE_URL?err} 
       JWT_SECRET: ${JWT_SECRET?err} 
       SIB_KEY: ${SIB_KEY?err} 
-    networks:
-      - ${COMMON_NETWORK_NAME?err}

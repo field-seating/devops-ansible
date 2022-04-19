@@ -20,7 +20,5 @@
       - "{{ mysql_volume_path }}:/var/lib/mysql"
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}" 
-    networks:
-      - name: "{{ common_network_name }}"
     capabilities:
       - sys_nice 

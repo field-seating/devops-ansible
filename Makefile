@@ -3,3 +3,6 @@ encrypt-secret:
 
 staging-api-deploy:
 	ansible-playbook -i inventories/staging --vault-id password/common_password -e="image_tag=${DEPLOY_TAG}" -u root apiserver.yml
+
+staging-db-deploy:
+	ansible-playbook -i inventories/staging --vault-id password/common_password -u root dbserver.yml
