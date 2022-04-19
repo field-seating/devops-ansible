@@ -29,7 +29,7 @@ jobs:
       - name: pre notification 
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: '{{ PROJECT_NAME }} deployment has been started. Please refer to Run URL'
+          args: '@here, {{ PROJECT_NAME }} deployment has been started. Please refer to Run URL'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
@@ -61,7 +61,7 @@ jobs:
       - name: post notification 
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: '{{ PROJECT_NAME }} deployment was succussful. Please refer to Run URL'
+          args: '@everyone, {{ PROJECT_NAME }} deployment was succussful. Please refer to Run URL'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
@@ -75,7 +75,7 @@ jobs:
       - name: failure notification 
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: '{{ PROJECT_NAME }} deployment was failed. Please refer to Run URL'
+          args: '@everyone, {{ PROJECT_NAME }} deployment was failed. Please refer to Run URL'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MESSAGE: ${{ github.event.inputs.message }}
