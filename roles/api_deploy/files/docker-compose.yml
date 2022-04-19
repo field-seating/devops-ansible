@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  server:
+    image: ${CONTAINER_IMAGE?err}
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    deploy:
+      replicas: ${REPLICAS:-1}
+      update_config:
+        parallelism: 1 
+        delay: 10s
+        max_failure_ratio: 0.3
+      rollback_config:
+        parallelism: 1 
+        delay: 10s
+        max_failure_ratio: 0.3
+      restart_policy:
+        condition: on-failure
+    environment:
+      DATABASE_URL: ${DATABASE_URL?err} 
+      JWT_SECRET: ${JWT_SECRET?err} 
+      SIB_KEY: ${SIB_KEY?err} 
+    networks:
+      - ${COMMON_NETWORK_NAME?err}

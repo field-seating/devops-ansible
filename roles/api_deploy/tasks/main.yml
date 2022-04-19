@@ -9,32 +9,52 @@
     source: pull
     force_source: true
 
-- name: Create container daemon
-  community.docker.docker_container:
-    name: "{{ container_name }}"
-    image: "{{ container_image }}"
-    restart: true
-    restart_policy: on-failure
-    restart_retries: 20
-    recreate: yes
-    exposed_ports:
-      - 3000 
-    ports:
-      - "3000:3000" 
-    networks:
-      - name: "{{ common_network_name }}"
-    env:
-      DATABASE_URL: "{{ database_url }}"
-      JWT_SECRET: "{{ jwt_secret }}"
-      SIB_KEY: "{{ sib_key }}"
+#- name: Create container daemon
+  #community.docker.docker_container:
+    #name: "{{ container_name }}"
+    #image: "{{ container_image }}"
+    #restart: true
+    #restart_policy: on-failure
+    #restart_retries: 20
+    #recreate: yes
+    #exposed_ports:
+      #- 3000 
+    #ports:
+      #- "3000:3000" 
+    #networks:
+      #- name: "{{ common_network_name }}"
+    #env:
+      #DATABASE_URL: "{{ database_url }}"
+      #JWT_SECRET: "{{ jwt_secret }}"
+      #SIB_KEY: "{{ sib_key }}"
+- name: Copy docker compose yml
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: /tmp/docker-compose.yml
 
-- name: post deploy 
-  community.docker.docker_container_exec:
-    container: "{{ container_name }}"
-    command: npm run db:deploy 
+- name: Deploy stack from a compose file
+  community.docker.docker_stack:
+    state: present
+    name: api-server 
+    compose:
+      - /tmp/docker-compose.yml
+    prune: true
+    with_registry_auth: true
+  environment:
+    DATABASE_URL: "{{ database_url }}"
+    JWT_SECRET: "{{ jwt_secret }}"
+    SIB_KEY: "{{ sib_key }}"
+    REPLICAS: "{{ api_replicas }}"
+    CONTAINER_IMAGE: "{{ container_image }}"
+    COMMON_NETWORK_NAME: "{{common_network_name}}"
 
-- name: Prune everything
-  community.docker.docker_prune:
-    images: yes
-    volumes: yes
-    containers: yes
+#- name: post deploy 
+  #community.docker.docker_container_exec:
+    #container: "{{ container_name }}"
+    #command: npm run db:deploy 
+
+#- name: Prune everything
+  #community.docker.docker_prune:
+    #images: yes
+    #volumes: yes
+    #containers: yes
