@@ -1,0 +1,12 @@
+- name: Install loki plugin 
+  community.docker.docker_plugin:
+    plugin_name: grafana/loki-docker-driver:latest
+    state: present
+    alias: loki
+
+- name: Enable loki plugin 
+  community.docker.docker_plugin:
+    plugin_name: grafana/loki-docker-driver:latest
+    state: enable 
+    alias: loki
+
