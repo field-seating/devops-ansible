@@ -9,24 +9,6 @@
     source: pull
     force_source: true
 
-#- name: Create container daemon
-  #community.docker.docker_container:
-    #name: "{{ container_name }}"
-    #image: "{{ container_image }}"
-    #restart: true
-    #restart_policy: on-failure
-    #restart_retries: 20
-    #recreate: yes
-    #exposed_ports:
-      #- 3000 
-    #ports:
-      #- "3000:3000" 
-    #networks:
-      #- name: "{{ common_network_name }}"
-    #env:
-      #DATABASE_URL: "{{ database_url }}"
-      #JWT_SECRET: "{{ jwt_secret }}"
-      #SIB_KEY: "{{ sib_key }}"
 - name: Copy docker compose yml
   ansible.builtin.copy:
     src: docker-compose.yml
@@ -48,13 +30,22 @@
     CONTAINER_IMAGE: "{{ container_image }}"
     COMMON_NETWORK_NAME: "{{common_network_name}}"
 
-#- name: post deploy 
-  #community.docker.docker_container_exec:
-    #container: "{{ container_name }}"
-    #command: npm run db:deploy 
+- name: post deploy 
+  community.docker.docker_container:
+    name: api-server-post-script 
+    image: "{{ container_image }}"
+    restart: true
+    restart_policy: on-failure
+    restart_retries: 20
+    recreate: yes
+    command: npm run db:deploy
+    env:
+      DATABASE_URL: "{{ database_url }}"
+      JWT_SECRET: "{{ jwt_secret }}"
+      SIB_KEY: "{{ sib_key }}"
 
-#- name: Prune everything
-  #community.docker.docker_prune:
-    #images: yes
-    #volumes: yes
-    #containers: yes
+- name: Prune everything
+  community.docker.docker_prune:
+    images: yes
+    volumes: yes
+    containers: yes
