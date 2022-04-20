@@ -23,6 +23,18 @@ services:
       driver: loki
       options:
         loki-url: ${LOKI_ENDPOINT?err}/loki/api/v1/push
+        loki-pipeline-stages: |
+          - json:
+              expressions: 
+                level: level
+                httpUrl: httpUrl
+                httpMethod: httpMethod
+                httpCode: httpCode
+          - labels:
+              level:
+              httpUrl:
+              httpMethod:
+              httpCode:
         loki-relabel-config: |
           - action: labelmap
             regex: swarm_stack
