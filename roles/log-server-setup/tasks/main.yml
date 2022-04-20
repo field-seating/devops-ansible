@@ -1,10 +1,28 @@
+- name: Creates loki directory
+  file:
+    path: $HOME/loki
+    state: directory
+
+- name: Creates grafana directory
+  file:
+    path: $HOME/grafana
+    state: directory
+
 - name: Copy docker compose yml
   ansible.builtin.copy:
     src: docker-compose.yml
-    dest: /tmp/docker-compose-log.yml
+    dest: $HOME/loki/docker-compose.yml
+
+- name: Copy config 
+  ansible.builtin.copy:
+    src: local-config.yaml
+    dest: $HOME/loki/local-config.yaml
 
 - name: Create and start log services
   community.docker.docker_compose:
     files:
-      - docker-compose-log.yml
-    project_src: /tmp
+      - docker-compose.yml
+    project_src: $HOME/loki
+  environment:
+    GRAFANA_ADMIN_USER: "{{ grafana_admin_user }}"
+    GRAFANA_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
