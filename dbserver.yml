@@ -1,5 +1,5 @@
 ---
-- hosts: apiservers 
+- hosts: dbservers 
   become: true
   roles: 
     - docker-setup

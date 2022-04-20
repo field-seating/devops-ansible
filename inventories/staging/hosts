@@ -1,3 +1,5 @@
 [apiservers]
 do-general.wendellatman.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+[dbservers]
+do-storage.wendellatman.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 

@@ -1,0 +1,24 @@
+- name: allow OpenSSH
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: allow mysql
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: '3306'
+
+- name: allow outgoing
+  community.general.ufw:
+    direction: outgoing
+    default: allow
+
+- name: deny incoming
+  community.general.ufw:
+    direction: incoming 
+    default: deny 
+
+- name: enable UFW
+  community.general.ufw:
+    state: enabled
