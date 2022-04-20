@@ -27,7 +27,6 @@ jobs:
           args: '{{ PROJECT_NAME }} deployment has been started. Please refer to Run URL'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          MESSAGE: ${{ github.event.inputs.message }}
           DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
 
       - name: create secrets directory
@@ -58,7 +57,6 @@ jobs:
           args: '{{ PROJECT_NAME }} deployment was succussful. Please refer to Run URL'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          MESSAGE: ${{ github.event.inputs.message }}
           DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
 
   failure-notification:

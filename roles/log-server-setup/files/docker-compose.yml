@@ -6,15 +6,25 @@ networks:
 services:
   loki:
     image: grafana/loki:2.5.0
+    user: "$UID:$GID"
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
+    volumes:
+      - "/var/data/loki:/var/data/loki"
+      - "$HOME/loki:/etc/loki"
 
   grafana:
     image: grafana/grafana:latest
+    user: "$UID:$GID"
     ports:
       - "9900:3000"
     networks:
       - loki
+    volumes:
+      - "/var/data/grafana:/var/lib/grafana"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER?err} 
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD?err} 

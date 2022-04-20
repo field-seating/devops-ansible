@@ -1,15 +1,14 @@
-tmp_file_name: "{{ secret }}" 
 image_registry: ghcr.io
 registry_username: WendellLiu
 registry_password: "{{ github_token }}"
+advertise_addr: 10.130.0.2
+
 container_image: "ghcr.io/field-seating/field-seating-api:{{ image_tag }}"
 container_name: field-seating-api 
-advertise_addr: 10.130.0.2
-mysql_container_name: mysql-8 
-mysql_container_image: mysql:8 
 mysql_root_password: "{{ db_password }}"
-mysql_volume_path: /var/data/mysql
 database_url: "mysql://root:{{ mysql_root_password }}@do-storage.wendellatman.com:3306/field_seating_staging"
 jwt_secret: "{{ jwt_secret }}"
 sib_key: "{{ sib_key }}"
 api_replicas: 1 
+stack_name: "api-server-staging"
+loki_endpoint: http://10.130.0.2:3100 

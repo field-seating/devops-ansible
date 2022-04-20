@@ -1,4 +1,4 @@
-name: API Deployment
+name: Log Server Deployment
 on: 
   workflow_dispatch:
     inputs:
@@ -10,14 +10,9 @@ on:
         options:
         - staging 
         - production 
-      deployTag:
-        description: 'tag to deploy'     
-        required: true
-        default: 'main' 
-        type: string
 
 env:
-  PROJECT_NAME: field-seating-api:${{github.event.inputs.deployTag}} on env ${{github.event.inputs.deployEnv}}
+  PROJECT_NAME: log-server on env ${{github.event.inputs.deployEnv}}
 
 jobs:
   deploy:
@@ -52,10 +47,9 @@ jobs:
 
       - name: pull image and create container 
         run: |
-          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -e="image_tag=$DEPLOY_TAG" -u root --private-key $HOME/secrets/my_private_key.pem apiserver.yml 
+          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -u root --private-key $HOME/secrets/my_private_key.pem logserver.yml 
         env:
           DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
-          DEPLOY_TAG: ${{ github.event.inputs.deployTag }}
 
       - name: post notification 
         uses: Ilshidur/action-discord@0.3.2

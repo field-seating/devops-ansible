@@ -17,7 +17,7 @@
 - name: Deploy stack from a compose file
   community.docker.docker_stack:
     state: present
-    name: api-server 
+    name: "{{ stack_name }}" 
     compose:
       - /tmp/docker-compose.yml
     prune: true
@@ -28,6 +28,7 @@
     SIB_KEY: "{{ sib_key }}"
     REPLICAS: "{{ api_replicas }}"
     CONTAINER_IMAGE: "{{ container_image }}"
+    LOKI_ENDPOINT: "{{ loki_endpoint }}"
 
 - name: post deploy 
   community.docker.docker_container:
