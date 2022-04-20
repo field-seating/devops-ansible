@@ -1,0 +1,10 @@
+- name: Copy docker compose yml
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: /tmp/docker-compose-log.yml
+
+- name: Create and start log services
+  community.docker.docker_compose:
+    files:
+      - docker-compose-log.yml
+    project_src: /tmp

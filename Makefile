@@ -6,3 +6,6 @@ staging-api-deploy:
 
 staging-db-deploy:
 	ansible-playbook -i inventories/staging --vault-id password/common_password -u root dbserver.yml
+
+staging-log-deploy:
+	ansible-playbook -i inventories/staging --vault-id password/common_password -u root logserver.yml

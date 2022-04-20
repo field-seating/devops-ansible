@@ -39,4 +39,5 @@
       - docker
       - jsondiff
       - pyyaml
+      - docker-compose
 
