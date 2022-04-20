@@ -19,6 +19,16 @@ services:
         max_failure_ratio: 0.3
       restart_policy:
         condition: on-failure
+    logging:
+      driver: loki
+      options:
+        loki-url: ${LOKI_ENDPOINT?err}/loki/api/v1/push
+        loki-relabel-config: |
+          - action: labelmap
+            regex: swarm_stack
+            replacement: namespace
+          - action: labelmap
+            regex: swarm_(service)
     environment:
       DATABASE_URL: ${DATABASE_URL?err} 
       JWT_SECRET: ${JWT_SECRET?err} 

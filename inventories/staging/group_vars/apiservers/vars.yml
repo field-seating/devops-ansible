@@ -12,3 +12,5 @@ sib_key: "{{ sib_key }}"
 api_replicas: 1 
 grafana_admin_user: admin 
 grafana_admin_password: "{{ grafana_admin_password }}"
+stack_name: "api-server-staging"
+loki_endpoint: http://10.130.0.2:3100 
