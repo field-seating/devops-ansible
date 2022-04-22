@@ -6,7 +6,7 @@ advertise_addr: 10.130.0.2
 container_image: "ghcr.io/field-seating/field-seating-api:{{ image_tag }}"
 container_name: field-seating-api 
 mysql_root_password: "{{ db_password }}"
-database_url: "mysql://root:{{ mysql_root_password }}@do-storage.wendellatman.com:3306/field_seating_staging"
+database_url: "mysql://root:{{ mysql_root_password }}@10.130.0.3:3306/field_seating_staging"
 jwt_secret: "{{ jwt_secret }}"
 sib_key: "{{ sib_key }}"
 api_replicas: 1 
