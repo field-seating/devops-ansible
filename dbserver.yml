@@ -3,4 +3,5 @@
   become: true
   roles: 
     - docker-setup
-    - mysql-setup 
+    #- mysql-setup 
+    - redis-setup 

@@ -6,3 +6,5 @@ mysql_container_name: mysql-8
 mysql_container_image: mysql:8 
 mysql_root_password: "{{ db_password }}"
 mysql_volume_path: /var/data/mysql
+redis_container_name: redis 
+redis_container_image: redis:6.2 
