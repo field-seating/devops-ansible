@@ -30,11 +30,13 @@ services:
                 httpUrl: httpUrl
                 httpMethod: httpMethod
                 httpCode: httpCode
+                userId: userId
           - labels:
               level:
               httpUrl:
               httpMethod:
               httpCode:
+              userId:
         loki-relabel-config: |
           - action: labelmap
             regex: swarm_stack
