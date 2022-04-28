@@ -48,3 +48,4 @@ services:
       JWT_SECRET: ${JWT_SECRET?err} 
       SIB_KEY: ${SIB_KEY?err} 
       APP_ENV: ${APP_ENV?err}
+      REDIS_URL: ${REDIS_URL?err} 
