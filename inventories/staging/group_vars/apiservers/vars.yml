@@ -13,3 +13,4 @@ api_replicas: 1
 stack_name: "api-server-staging"
 loki_endpoint: http://10.130.0.2:3100 
 app_env: staging
+redis_url: "redis://10.130.0.3:6379"

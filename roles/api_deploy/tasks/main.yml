@@ -30,6 +30,7 @@
     CONTAINER_IMAGE: "{{ container_image }}"
     LOKI_ENDPOINT: "{{ loki_endpoint }}"
     APP_ENV: "{{ app_env }}"
+    REDIS_URL: "{{ redis_url }}"
 
 - name: post deploy 
   community.docker.docker_container:
