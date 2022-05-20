@@ -31,6 +31,8 @@
     LOKI_ENDPOINT: "{{ loki_endpoint }}"
     APP_ENV: "{{ app_env }}"
     REDIS_URL: "{{ redis_url }}"
+    DO_ACCESS_KEY: "{{ doAccessKey }}"
+    DO_SECRET: "{{ doSecret }}"
 
 - name: post deploy 
   community.docker.docker_container:
