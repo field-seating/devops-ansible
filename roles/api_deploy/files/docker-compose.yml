@@ -49,3 +49,5 @@ services:
       SIB_KEY: ${SIB_KEY?err} 
       APP_ENV: ${APP_ENV?err}
       REDIS_URL: ${REDIS_URL?err} 
+      DO_ACCESS_KEY: ${DO_ACCESS_KEY?err}
+      DO_SECRET: ${DO_SECRET?err}
