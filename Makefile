@@ -15,3 +15,6 @@ staging-db-deploy:
 
 staging-log-deploy:
 	ansible-playbook -i inventories/staging --vault-id password/common_password -u root logserver.yml
+
+staging-api-seeding:
+	ansible-playbook -i inventories/staging --vault-id password/common_password -e="image_tag=${DEPLOY_TAG}" -u root apiseeding.yml
