@@ -1,0 +1,5 @@
+---
+- hosts: apiservers 
+  become: true
+  roles: 
+    - api-seeding

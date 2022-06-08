@@ -1,0 +1,22 @@
+- name: seeding job 
+  community.docker.docker_container:
+    name: api-server-seeding-job 
+    image: "{{ container_image }}"
+    restart: true
+    restart_policy: on-failure
+    restart_retries: 20
+    recreate: yes
+    command: npm run db:seed
+    env:
+      DATABASE_URL: "{{ database_url }}"
+      JWT_SECRET: "{{ jwt_secret }}"
+      SIB_KEY: "{{ sib_key }}"
+      REDIS_URL: "{{ redis_url }}"
+      DO_ACCESS_KEY: "{{ doAccessKey }}"
+      DO_SECRET: "{{ doSecret }}"
+
+- name: Prune everything
+  community.docker.docker_prune:
+    images: yes
+    volumes: yes
+    containers: yes
