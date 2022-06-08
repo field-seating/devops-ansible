@@ -16,7 +16,13 @@
       DO_SECRET: "{{ doSecret }}"
     log_driver: loki
     log_options:
-      loki-url: "{{ loki_endpoint }}" 
+      loki-url: "{{ loki_endpoint }}/loki/api/v1/push" 
+      loki-pipeline-stages: |
+        - json:
+            expressions: 
+              level: level
+        - labels:
+            level:
 
 - name: Prune everything
   community.docker.docker_prune:
