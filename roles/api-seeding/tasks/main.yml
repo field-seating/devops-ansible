@@ -8,7 +8,7 @@
     recreate: yes
     command: npm run db:seed
     env:
-      DATABASE_URL: "{{ database_url }}"
+      DATABASE_URL: "{{ database_url_long_running }}"
       JWT_SECRET: "{{ jwt_secret }}"
       SIB_KEY: "{{ sib_key }}"
       REDIS_URL: "{{ redis_url }}"
