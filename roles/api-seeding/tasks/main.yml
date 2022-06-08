@@ -14,6 +14,9 @@
       REDIS_URL: "{{ redis_url }}"
       DO_ACCESS_KEY: "{{ doAccessKey }}"
       DO_SECRET: "{{ doSecret }}"
+    log_driver: loki
+    log_options:
+      loki-url: "{{ loki_endpoint }}" 
 
 - name: Prune everything
   community.docker.docker_prune:
