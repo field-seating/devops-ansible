@@ -1,5 +1,5 @@
 [apiservers]
-do-general.wendellatman.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+api-staging.fieldseating.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [dbservers]
 10.130.0.3 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [logservers]
