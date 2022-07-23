@@ -30,3 +30,6 @@ staging-api-seeding:
 
 encrypt-private-key:
 	ansible-vault encrypt --vault-id password/common_password secrets/${ENV}/private_key --output=secret_file/${ENV}/private_key.enc
+
+decrypt-private-key:
+	ansible-vault decrypt --vault-id password/common_password secret_file/${ENV}/private_key.enc --output=secrets/${ENV}/private_key
