@@ -1,7 +1,7 @@
 image_registry: ghcr.io
 registry_username: WendellLiu
 registry_password: "{{ github_token }}"
-advertise_addr: 10.130.0.2
+advertise_addr: 10.130.0.4
 
 container_image: "ghcr.io/field-seating/field-seating-api:{{ image_tag }}"
 container_name: field-seating-api 
@@ -17,3 +17,7 @@ app_env: staging
 redis_url: "redis://10.130.0.3:6379"
 doAccessKey: "{{ doAccessKey }}"
 doSecret: "{{ doSecret }}"
+
+domain_name: api-staging.fieldseating.com 
+letsencrypt_email: cuk.bas@gmail.com
+proxy_port: 3000

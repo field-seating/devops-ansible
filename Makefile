@@ -16,17 +16,17 @@ encrypt-secret-log:
 decrypt-secret-log:
 	ansible-vault decrypt --vault-id password/common_password inventories/${ENV}/group_vars/logservers/vault.yml --output=secrets/${ENV}/logservers/secret.yml
 
-staging-api-deploy:
-	ansible-playbook -i inventories/staging --vault-id password/common_password -e="image_tag=${DEPLOY_TAG}" -u root apiserver.yml
+api-deploy:
+	ansible-playbook -i inventories/${ENV} --vault-id password/common_password -e="image_tag=${DEPLOY_TAG}" -u root apiserver.yml
 
-staging-db-deploy:
-	ansible-playbook -i inventories/staging --vault-id password/common_password -u root dbserver.yml
+db-deploy:
+	ansible-playbook -i inventories/${ENV} --vault-id password/common_password -u root dbserver.yml
 
-staging-log-deploy:
-	ansible-playbook -i inventories/staging --vault-id password/common_password -u root logserver.yml
+log-deploy:
+	ansible-playbook -i inventories/${ENV} --vault-id password/common_password -u root logserver.yml
 
-staging-api-seeding:
-	ansible-playbook -i inventories/staging --vault-id password/common_password -e="image_tag=${DEPLOY_TAG}" -u root apiseeding.yml
+api-seeding:
+	ansible-playbook -i inventories/${ENV} --vault-id password/common_password -e="image_tag=${DEPLOY_TAG}" -u root apiseeding.yml
 
 encrypt-private-key:
 	ansible-vault encrypt --vault-id password/common_password secrets/${ENV}/private_key --output=secret_file/${ENV}/private_key.enc
