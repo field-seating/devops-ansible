@@ -6,15 +6,15 @@ advertise_addr: 10.130.0.4
 container_image: "ghcr.io/field-seating/field-seating-api:{{ image_tag }}"
 container_name: field-seating-api 
 mysql_root_password: "{{ db_password }}"
-database_url: "mysql://root:{{ mysql_root_password }}@10.130.0.3:3306/field_seating_staging"
-database_url_long_running: "mysql://root:{{ mysql_root_password }}@10.130.0.3:3306/field_seating_staging?pool_timeout=0"
+database_url: "mysql://root:{{ mysql_root_password }}@10.130.0.5:3306/field_seating_staging"
+database_url_long_running: "mysql://root:{{ mysql_root_password }}@10.130.0.5:3306/field_seating_staging?pool_timeout=0"
 jwt_secret: "{{ jwt_secret }}"
 sib_key: "{{ sib_key }}"
 api_replicas: 1 
 stack_name: "api-server-staging"
 loki_endpoint: http://10.130.0.2:3100 
 app_env: staging
-redis_url: "redis://10.130.0.3:6379"
+redis_url: "redis://10.130.0.5:6379"
 doAccessKey: "{{ doAccessKey }}"
 doSecret: "{{ doSecret }}"
 
