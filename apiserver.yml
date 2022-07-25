@@ -4,3 +4,4 @@
   roles: 
     - docker-setup
     - api_deploy
+    - nginx-ssl-setup
