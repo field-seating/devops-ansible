@@ -1,6 +1,7 @@
 ---
-- hosts: apiservers 
+- hosts: logservers 
   become: true
   roles: 
     - docker-setup
     - log-server-setup 
+    - nginx-ssl-setup
