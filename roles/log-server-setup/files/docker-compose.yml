@@ -15,6 +15,7 @@ services:
     volumes:
       - "/var/data/loki:/var/data/loki"
       - "$HOME/loki:/etc/loki"
+    restart: on-failure
 
   grafana:
     image: grafana/grafana:latest
@@ -28,3 +29,4 @@ services:
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER?err} 
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD?err} 
+    restart: on-failure
