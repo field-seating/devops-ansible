@@ -9,7 +9,6 @@ mysql_root_password: "{{ db_password }}"
 database_url: "mysql://root:{{ mysql_root_password }}@10.130.0.5:3306/field_seating_staging"
 database_url_long_running: "mysql://root:{{ mysql_root_password }}@10.130.0.5:3306/field_seating_staging?pool_timeout=0"
 jwt_secret: "{{ jwt_secret }}"
-sib_key: "{{ sib_key }}"
 api_replicas: 1 
 stack_name: "api-server-staging"
 loki_endpoint: http://10.130.0.2:3100 
@@ -21,3 +20,4 @@ doSecret: "{{ doSecret }}"
 domain_name: api-staging.fieldseating.com 
 letsencrypt_email: cuk.bas@gmail.com
 proxy_port: 3000
+sendgrid_key: "{{ sendgrid_key }}"
