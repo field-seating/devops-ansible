@@ -33,6 +33,7 @@
     DO_ACCESS_KEY: "{{ doAccessKey }}"
     DO_SECRET: "{{ doSecret }}"
     SENDGRID_API_KEY: "{{ sendgrid_key }}"
+    SENDGRID_SANDBOX_MODE: "{{ sendgrid_sandbox_mode }}"
 
 - name: post deploy 
   community.docker.docker_container:
@@ -47,6 +48,7 @@
       DATABASE_URL: "{{ database_url }}"
       JWT_SECRET: "{{ jwt_secret }}"
       SENDGRID_API_KEY: "{{ sendgrid_key }}"
+      SENDGRID_SANDBOX_MODE: "{{ sendgrid_sandbox_mode }}"
 
 - name: Prune everything
   community.docker.docker_prune:
