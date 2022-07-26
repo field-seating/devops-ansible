@@ -10,10 +10,10 @@
     env:
       DATABASE_URL: "{{ database_url_long_running }}"
       JWT_SECRET: "{{ jwt_secret }}"
-      SIB_KEY: "{{ sib_key }}"
       REDIS_URL: "{{ redis_url }}"
       DO_ACCESS_KEY: "{{ doAccessKey }}"
       DO_SECRET: "{{ doSecret }}"
+      SENDGRID_API_KEY: "{{ sendgrid_key }}"
     log_driver: loki
     log_options:
       loki-url: "{{ loki_endpoint }}/loki/api/v1/push" 

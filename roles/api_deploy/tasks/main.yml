@@ -25,7 +25,6 @@
   environment:
     DATABASE_URL: "{{ database_url }}"
     JWT_SECRET: "{{ jwt_secret }}"
-    SIB_KEY: "{{ sib_key }}"
     REPLICAS: "{{ api_replicas }}"
     CONTAINER_IMAGE: "{{ container_image }}"
     LOKI_ENDPOINT: "{{ loki_endpoint }}"
@@ -33,6 +32,7 @@
     REDIS_URL: "{{ redis_url }}"
     DO_ACCESS_KEY: "{{ doAccessKey }}"
     DO_SECRET: "{{ doSecret }}"
+    SENDGRID_API_KEY: "{{ sendgrid_key }}"
 
 - name: post deploy 
   community.docker.docker_container:
@@ -46,7 +46,7 @@
     env:
       DATABASE_URL: "{{ database_url }}"
       JWT_SECRET: "{{ jwt_secret }}"
-      SIB_KEY: "{{ sib_key }}"
+      SENDGRID_API_KEY: "{{ sendgrid_key }}"
 
 - name: Prune everything
   community.docker.docker_prune:
