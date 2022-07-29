@@ -10,6 +10,7 @@ on:
         options:
         - staging 
         - production 
+        - load-test
       deployTag:
         description: 'tag to deploy'     
         required: true
