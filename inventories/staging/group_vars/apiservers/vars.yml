@@ -13,7 +13,7 @@ api_replicas: 1
 stack_name: "api-server-staging"
 loki_endpoint: http://10.130.0.2:3100 
 app_env: staging
-redis_url: "redis://10.130.0.5:6379"
+redis_url: "redis://default:{{ redis_password }}@10.130.0.5:6379"
 doAccessKey: "{{ doAccessKey }}"
 doSecret: "{{ doSecret }}"
 
