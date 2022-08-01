@@ -13,3 +13,11 @@ mysqldump_path: /var/backup
 
 redis_container_name: redis 
 redis_container_image: redis:6.2 
+
+s3_access_key: "{{ s3_access_key }}"
+s3_secret_key: "{{ s3_secret_key }}"
+s3_endpoint: https://sgp1.digitaloceanspaces.com
+backup_s3_bucket: field-seating
+backup_directory: "/staging/mysqlbackup"
+backup_file_name: "backup-{{ ansible_date_time.iso8601 }}.gz"
+

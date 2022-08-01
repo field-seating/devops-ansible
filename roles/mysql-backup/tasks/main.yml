@@ -1,7 +1,23 @@
+- name: Install Python Module
+  pip:
+    name: 
+      - botocore
+      - boto3
+
 - name: create a backup gz 
   community.docker.docker_container_exec:
     container: "{{ mysql_container_name }}"
     argv:
       - /bin/bash
       - "-c"
-      - "mysqldump {{ mysql_database }} | gzip >  /backup/backup-{{ ansible_date_time.iso8601 }}.gz"
+      - "mysqldump {{ mysql_database }} | gzip >  /backup/{{ backup_file_name }}"
+
+- name: upload backup
+  amazon.aws.aws_s3:
+    bucket: "{{ backup_s3_bucket }}"
+    object: "{{ backup_directory }}/{{ backup_file_name }}"
+    src: "{{ mysqldump_path }}/{{ backup_file_name }}"
+    mode: put
+    aws_access_key: "{{ s3_access_key }}"
+    aws_secret_key: "{{ s3_secret_key }}"
+    s3_url: "{{ s3_endpoint }}"
