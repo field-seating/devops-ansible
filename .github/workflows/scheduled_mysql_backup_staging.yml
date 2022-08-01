@@ -1,0 +1,24 @@
+name: Scheduled MySQL Backup Staging 
+
+on:
+  schedule:
+    - cron: '1 10 * * *'
+
+jobs:
+  dispatch:
+    needs: build-and-push-image
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.PAT_TOKEN }}
+        script: |
+          await github.rest.actions.createWorkflowDispatch({
+            owner: 'field-seating',
+            repo: 'devops-ansible',
+            workflow_id: 'mysql-backup.yml',
+            ref: 'main',
+            inputs: {
+              deployEnv: 'staging'
+            }
+          })
