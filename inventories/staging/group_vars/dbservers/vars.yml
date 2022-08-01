@@ -2,9 +2,13 @@ image_registry: ghcr.io
 registry_username: WendellLiu
 registry_password: "{{ github_token }}"
 advertise_addr: 10.130.0.5
+
 mysql_container_name: mysql-8 
 mysql_container_image: mysql:8.0.29 
 mysql_root_password: "{{ db_password }}"
 mysql_volume_path: /var/data/mysql
+mysql_confd_path: ~/my.cnf
+mysql_database: field_seating_staging
+
 redis_container_name: redis 
 redis_container_image: redis:6.2 
