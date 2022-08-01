@@ -1,6 +1,6 @@
 [apiservers]
 api-staging.fieldseating.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [dbservers]
-10.130.0.5 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+storage-staging.fieldseating.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [logservers]
 do-general.wendellatman.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
