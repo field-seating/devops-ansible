@@ -15,7 +15,7 @@ env:
   PROJECT_NAME: field-seating mysql backup on env ${{github.event.inputs.deployEnv}}
 
 jobs:
-  backup:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
