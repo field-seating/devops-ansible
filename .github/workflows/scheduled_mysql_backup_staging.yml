@@ -8,11 +8,8 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      
-      - name: List files
-        run: ls
+      - name: Every time
+        run: echo "This step will always run"
       #- uses: actions/github-script@v6
         #with:
           #github-token: ${{ secrets.PAT_TOKEN }}
