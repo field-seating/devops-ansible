@@ -2,7 +2,7 @@ name: Scheduled MySQL Backup Staging
 
 on:
   schedule:
-    - cron: '5 10 * * *'
+    - cron: '9 10 * * *'
 
 jobs:
   dispatch:
