@@ -8,7 +8,7 @@ mysql_container_image: mysql:8.0.29
 mysql_root_password: "{{ db_password }}"
 mysql_volume_path: /var/data/mysql
 mysql_conf_path: /var/mysql/conf.d
-mysql_database: field_seating_staging
+mysql_database: field_seating
 mysqldump_path: /var/mysql/backup
 
 redis_container_name: redis 
@@ -20,5 +20,5 @@ s3_access_key: "{{ s3_access_key }}"
 s3_secret_key: "{{ s3_secret_key }}"
 s3_endpoint: https://sgp1.digitaloceanspaces.com
 backup_s3_bucket: field-seating
-backup_directory: "/staging/mysqlbackup"
+backup_directory: "/production/mysqlbackup"
 backup_file_name: "backup-{{ ansible_date_time.iso8601 }}.gz"
