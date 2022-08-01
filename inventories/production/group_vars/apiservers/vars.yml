@@ -11,7 +11,7 @@ database_url_long_running: "mysql://root:{{ mysql_root_password }}@10.130.0.8:33
 jwt_secret: "{{ jwt_secret }}"
 api_replicas: 1 
 stack_name: "api-server"
-loki_endpoint: http://10.130.0.2:3100 
+loki_endpoint: http://10.130.0.7:3100 
 app_env: production 
 redis_url: "redis://default:{{ redis_password }}@10.130.0.8:6379"
 doAccessKey: "{{ doAccessKey }}"
