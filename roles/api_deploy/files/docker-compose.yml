@@ -5,8 +5,6 @@ services:
     image: ${CONTAINER_IMAGE?err}
     ports:
       - 3000:3000
-    expose:
-      - 3000
     deploy:
       replicas: ${REPLICAS:-1}
       update_config:
