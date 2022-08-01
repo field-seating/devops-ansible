@@ -33,3 +33,6 @@ encrypt-private-key:
 
 decrypt-private-key:
 	ansible-vault decrypt --vault-id password/common_password secret_file/${ENV}/private_key.enc --output=secrets/${ENV}/private_key
+
+mysql-backup:
+	ansible-playbook -i inventories/${ENV} --vault-id password/common_password -u root mysql-backup.yml

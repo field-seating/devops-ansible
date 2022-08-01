@@ -23,6 +23,7 @@
     volumes:
       - "{{ mysql_volume_path }}:/var/lib/mysql"
       - "{{ mysql_confd_path }}:/etc/mysql/conf.d/my.cnf"
+      - "{{ mysqldump_path }}:/backup"
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}" 
       MYSQL_ROOT_HOST: "%"

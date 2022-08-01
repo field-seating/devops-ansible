@@ -9,6 +9,7 @@ mysql_root_password: "{{ db_password }}"
 mysql_volume_path: /var/data/mysql
 mysql_confd_path: ~/my.cnf
 mysql_database: field_seating_staging
+mysqldump_path: /var/backup
 
 redis_container_name: redis 
 redis_container_image: redis:6.2 

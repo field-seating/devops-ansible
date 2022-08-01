@@ -1,0 +1,7 @@
+- name: create a backup gz 
+  community.docker.docker_container_exec:
+    container: "{{ mysql_container_name }}"
+    argv:
+      - /bin/bash
+      - "-c"
+      - "mysqldump {{ mysql_database }} | gzip >  /backup/backup-{{ ansible_date_time.iso8601 }}.gz"
