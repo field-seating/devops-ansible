@@ -1,0 +1,24 @@
+image_registry: ghcr.io
+registry_username: WendellLiu
+registry_password: "{{ github_token }}"
+advertise_addr: 10.130.0.6
+
+container_image: "ghcr.io/field-seating/field-seating-api:{{ image_tag }}"
+container_name: field-seating-api 
+mysql_root_password: "{{ db_password }}"
+database_url: "mysql://root:{{ mysql_root_password }}@10.130.0.8:3306/field_seating"
+database_url_long_running: "mysql://root:{{ mysql_root_password }}@10.130.0.8:3306/field_seating?pool_timeout=0"
+jwt_secret: "{{ jwt_secret }}"
+api_replicas: 1 
+stack_name: "api-server"
+loki_endpoint: http://10.130.0.2:3100 
+app_env: production 
+redis_url: "redis://default:{{ redis_password }}@10.130.0.8:6379"
+doAccessKey: "{{ doAccessKey }}"
+doSecret: "{{ doSecret }}"
+
+domain_name: api.fieldseating.com 
+letsencrypt_email: cuk.bas@gmail.com
+proxy_port: 3000
+sendgrid_key: "{{ sendgrid_key }}"
+sendgrid_sandbox_mode: false
