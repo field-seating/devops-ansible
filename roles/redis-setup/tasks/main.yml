@@ -1,16 +1,24 @@
-- import_tasks: ufw-setup.yml
-
 - name: Pull default Docker image
   community.docker.docker_image:
     name: "{{ redis_container_image }}"
     source: pull
     force_source: true
 
+- name: Create conf directory
+  ansible.builtin.file:
+    path: "{{ redis_conf_path }}" 
+    state: directory
+
+- name: copy redis.conf
+  template:
+    src: redis.conf.j2
+    dest: "{{ redis_conf_path }}/redis.conf"
+
 - name: Create container
   community.docker.docker_container:
     name: "{{ redis_container_name }}"
     image: "{{ redis_container_image }}"
-    command: redis-server
+    command: redis-server /usr/local/etc/redis/redis.conf
     recreate: yes
     restart: true
     restart_policy: on-failure
@@ -19,3 +27,5 @@
       - 6379 
     ports:
       - "6379:6379" 
+    volumes:
+      - "{{ redis_conf_path }}:/usr/local/etc/redis"

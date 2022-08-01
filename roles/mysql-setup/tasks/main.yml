@@ -4,10 +4,15 @@
     source: pull
     force_source: true
 
+- name: Create conf directory 
+  ansible.builtin.file:
+    path: "{{ mysql_conf_path }}" 
+    state: directory
+
 - name: copy my.cnf
   template:
     src: my.cnf.j2
-    dest: "{{ mysql_confd_path }}"
+    dest: "{{ mysql_conf_path }}/my.cnf"
 
 - name: Create container
   community.docker.docker_container:
@@ -22,7 +27,7 @@
       - "3306:3306" 
     volumes:
       - "{{ mysql_volume_path }}:/var/lib/mysql"
-      - "{{ mysql_confd_path }}:/etc/mysql/conf.d/my.cnf"
+      - "{{ mysql_conf_path }}/my.cnf:/etc/mysql/conf.d/my.cnf"
       - "{{ mysqldump_path }}:/backup"
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}" 
