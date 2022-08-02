@@ -40,4 +40,5 @@
       - jsondiff
       - pyyaml
       - docker-compose
+      - PyMySQL
 

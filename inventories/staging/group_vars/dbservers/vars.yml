@@ -11,6 +11,9 @@ mysql_conf_path: /var/mysql/conf.d
 mysql_database: field_seating_staging
 mysqldump_path: /var/mysql/backup
 
+mysql_readonly_username: developer
+mysql_readonly_password: "{{ mysql_readonly_password }}" 
+
 redis_container_name: redis 
 redis_container_image: redis:6.2 
 redis_conf_path: /var/redis/conf
