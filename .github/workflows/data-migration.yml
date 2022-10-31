@@ -1,0 +1,81 @@
+name: Data Migration 
+on: 
+  workflow_dispatch:
+    inputs:
+      deployEnv:
+        description: 'env to deploy'     
+        required: true
+        default: 'staging' 
+        type: choice
+        options:
+        - staging 
+        - production 
+      scriptName:
+        description: 'script name'     
+        required: true
+        type: string
+
+env:
+  PROJECT_NAME: field-seating-api:main on env ${{github.event.inputs.deployEnv}}
+  SCRIPT_NAME: ${{ github.event.inputs.scriptName }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: pre notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '@here, {{ PROJECT_NAME }} data migration, {{ SCRIPT_NAME }}, has been started. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+
+      - name: create secrets directory
+        run: |
+          mkdir $HOME/secrets
+
+      - name: render password file
+        run: |
+          echo $COMMON_PASSWORD > $HOME/secrets/common_password
+        env:
+          COMMON_PASSWORD: ${{ secrets.COMMON_PASSWORD }}
+
+      - name: decrypt private_key
+        run: |
+          ansible-vault decrypt --vault-id $HOME/secrets/common_password secret_file/$DEPLOY_ENV/private_key.enc --output=$HOME/secrets/my_private_key.pem
+        env:
+          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
+
+      - name: run the job 
+        run: |
+          ansible-playbook -i inventories/$DEPLOY_ENV --vault-id $HOME/secrets/common_password -e="image_tag=$DEPLOY_TAG script_name=$SCRIPT_NAME" -u root --private-key $HOME/secrets/my_private_key.pem data-migration.yml 
+        env:
+          DEPLOY_ENV: ${{ github.event.inputs.deployEnv }}
+          DEPLOY_TAG: main 
+
+      - name: post notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '@everyone, {{ PROJECT_NAME }} data migration, {{ SCRIPT_NAME }}, was succussful. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+
+  failure-notification:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    steps:
+      - name: failure notification 
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: '@everyone, {{ PROJECT_NAME }} data migration, {{ SCRIPT_NAME }}, was failed. Please refer to Run URL'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MESSAGE: ${{ github.event.inputs.message }}
+          DISCORD_EMBEDS: '[{"title": "Run #${{github.run_id}}", "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]'
+
