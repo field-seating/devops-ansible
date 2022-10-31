@@ -1,10 +1,14 @@
+- name: Debug
+  debug: 
+    msg: "The script file name is {{ script_name }}"
+
 - name: run the job 
   community.docker.docker_container:
     name: "api-server-migration-{{ script_name }}" 
     image: "{{ container_image }}"
     restart: true
     restart_policy: on-failure
-    restart_retries: 20
+    restart_retries: 5 
     recreate: yes
     command: "node data/{{ script_name }}.js"
     env:
