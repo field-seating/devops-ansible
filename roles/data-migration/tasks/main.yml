@@ -26,8 +26,8 @@
         - labels:
             level:
 
-#- name: Prune everything
-  #community.docker.docker_prune:
-    #images: yes
-    #volumes: yes
-    #containers: yes
+- name: Prune everything
+  community.docker.docker_prune:
+    images: yes
+    volumes: yes
+    containers: yes
