@@ -1,4 +1,4 @@
-- name: Print the info 
+- name: Print the info
   ansible.builtin.debug:
     msg: image {{ container_image }} container {{ container_name }}
     verbosity: 1
@@ -17,7 +17,7 @@
 - name: Deploy stack from a compose file
   community.docker.docker_stack:
     state: present
-    name: "{{ stack_name }}" 
+    name: "{{ stack_name }}"
     compose:
       - /tmp/docker-compose.yml
     prune: true
@@ -35,9 +35,9 @@
     SENDGRID_API_KEY: "{{ sendgrid_key }}"
     SENDGRID_SANDBOX_MODE: "{{ sendgrid_sandbox_mode }}"
 
-- name: post deploy 
+- name: post deploy
   community.docker.docker_container:
-    name: api-server-post-script 
+    name: api-server-post-script
     image: "{{ container_image }}"
     restart: true
     restart_policy: on-failure
@@ -49,9 +49,8 @@
       JWT_SECRET: "{{ jwt_secret }}"
       SENDGRID_API_KEY: "{{ sendgrid_key }}"
       SENDGRID_SANDBOX_MODE: '"{{ sendgrid_sandbox_mode }}"'
-
-- name: Prune everything
-  community.docker.docker_prune:
-    images: yes
-    volumes: yes
-    containers: yes
+# - name: Prune everything
+#   community.docker.docker_prune:
+#     images: yes
+#     volumes: yes
+#     containers: yes
