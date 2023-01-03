@@ -20,7 +20,6 @@
     name: "{{ stack_name }}"
     compose:
       - /tmp/docker-compose.yml
-    prune: true
     with_registry_auth: true
   environment:
     DATABASE_URL: "{{ database_url }}"
