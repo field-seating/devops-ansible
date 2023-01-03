@@ -14,7 +14,7 @@
     state: directory
 
 - name: Remove default nginx config
-  file: 
+  file:
     name: /etc/nginx/sites-enabled/default
     state: absent
 
@@ -55,4 +55,4 @@
   cron:
     name: letsencrypt_renewal
     special_time: weekly
-    job: letsencrypt --renew certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }} && service nginx reload
+    job: letsencrypt --renew-by-default certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }} && service nginx reload
