@@ -3,4 +3,4 @@ api.fieldseating.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [dbservers]
 storage.fieldseating.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [logservers]
-log.fieldseating.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+do-general.wendellatman.com ansible_ssh_common_args='-o StrictHostKeyChecking=no'
